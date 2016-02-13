@@ -1,19 +1,26 @@
 extends layout
 
 block body
-  div(ng-controller='AppCtrl')
-    h2 Hello {{name}}
-    ul.menu
-      li
-        a(href='view1') view1
-      li
-        a(href='view2') view2
+  nav.navbar.navbar-default.navbar-fixed-top
+    div.container-fluid
+      div.navbar-header
+        a.navbar-brand My achievement
 
-    div(ng-view)
+      p.navbar-text 14331401
+      p.navbar-text zhuangqh
 
-    div
-      | my achievement test
-      span(app-version)
+      ul.nav.navbar-nav.navbar-right
+        li.dropdown
+          a.dropdown-toggle(href="#",data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false")
+            | 更多
+            span.caret
+          ul.dropdown-menu
+            li
+              a(href='#') 修改密码
+            li
+              a(href='#') 退出
+
+  div#ng-view(ng-view)
 
   script(src='js/lib/angular/angular.js')
   script(src='js/app.js')

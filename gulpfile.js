@@ -9,15 +9,19 @@ var
   jade = require('gulp-jade'),
   notify = require('gulp-notify'),
   livereload = require('gulp-livereload'),
-  connect = require('gulp-connect');
+  connect = require('gulp-connect'),
+  cache = require('gulp-cache'),
+  imagemin = require('gulp-imagemin');
 
 var path = {
   jade: 'views/**/*.jade',
-  sass: 'src/css/**/**.sass',
-  coffee: 'src/js/**/*.js',
-  html: 'public/',
-  css: 'public/css/',
-  js: 'public/js/'
+  sass: 'public/sass/**/*.sass',
+  coffee: 'public/js/**/*.js',
+  image: 'public/image/*',
+  html: 'dist/',
+  css: 'dist/css/',
+  js: 'dist/js/',
+  img: 'dist/img/'
 };
 
 gulp.task('html', function () {
@@ -44,8 +48,16 @@ gulp.task('scripts', function () {
     .pipe(connect.reload());
 });
 
+gulp.task('images', function () {
+  return gulp.src(path.image)
+    .pipe(cache(imagemin({optimizationLevel: 5, progressive: true, interlaced: true})))
+    .pipe(gulp.dest(path.img))
+    .pipe(notify({message: 'Images task complete'}))
+    .pipe(connect.reload());
+});
+
 gulp.task('default', ['connectDev', 'watch'], function () {
-  gulp.start('html', 'styles', 'scripts');
+  gulp.start('html', 'styles', 'scripts', 'images');
 });
 
 gulp.task('connectDev', function () {
@@ -60,5 +72,6 @@ gulp.task('watch', function () {
   gulp.watch(path.jade, ['html']);
   gulp.watch(path.sass, ['styles']);
   gulp.watch(path.coffee, ['scripts']);
+  gulp.watch(path.image, ['images']);
 });
 
