@@ -9,9 +9,7 @@ var
   jade = require('gulp-jade'),
   notify = require('gulp-notify'),
   livereload = require('gulp-livereload'),
-  connect = require('gulp-connect'),
-  cache = require('gulp-cache'),
-  imagemin = require('gulp-imagemin');
+  connect = require('gulp-connect');
 
 var path = {
   jade: 'views/**/*.jade',
@@ -28,7 +26,6 @@ gulp.task('html', function () {
   return gulp.src(path.jade)
     .pipe(jade())
     .pipe(gulp.dest(path.html))
-    .pipe(notify({message: 'HTML task complete!'}))
     .pipe(connect.reload());
 });
 
@@ -37,22 +34,18 @@ gulp.task('styles', function () {
     .pipe(sass({outputStyle: 'expanded'}))
     .pipe(autoprefixer('last 2 version'))
     .pipe(gulp.dest(path.css))
-    .pipe(notify({message: 'Styles task complete!'}))
     .pipe(connect.reload());
 });
 
 gulp.task('scripts', function () {
   return gulp.src(path.coffee)
     .pipe(gulp.dest(path.js))
-    .pipe(notify({message: 'Scripts task complete!'}))
     .pipe(connect.reload());
 });
 
 gulp.task('images', function () {
   return gulp.src(path.image)
-    .pipe(cache(imagemin({optimizationLevel: 5, progressive: true, interlaced: true})))
     .pipe(gulp.dest(path.img))
-    .pipe(notify({message: 'Images task complete'}))
     .pipe(connect.reload());
 });
 
