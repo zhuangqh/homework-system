@@ -9,12 +9,14 @@ var
   jade = require('gulp-jade'),
   notify = require('gulp-notify'),
   livereload = require('gulp-livereload'),
-  connect = require('gulp-connect');
+  connect = require('gulp-connect'),
+  coffee = require('gulp-coffee'),
+  uglify = require('gulp-uglify');
 
 var path = {
   jade: 'views/**/*.jade',
   sass: 'public/sass/**/*.sass',
-  coffee: 'public/js/**/*.js',
+  coffee: 'public/js/**/*.coffee',
   image: 'public/image/*',
   html: 'dist/',
   css: 'dist/css/',
@@ -39,6 +41,8 @@ gulp.task('styles', function () {
 
 gulp.task('scripts', function () {
   return gulp.src(path.coffee)
+    .pipe(coffee())
+    //.pipe(uglify())
     .pipe(gulp.dest(path.js))
     .pipe(connect.reload());
 });
