@@ -9,9 +9,9 @@ function onConfig($routeProvider, $locationProvider) {
       templateUrl: 'partials/index',
       controller: 'IndexCtrl'
     })
-    .when('/comment', {
-      templateUrl: 'partials/comment',
-      controller: 'CommentCtrl'
+    .when('/previousReview', {
+      templateUrl: 'partials/previousReview',
+      controller: 'PreReviewCtrl'
     })
     .otherwise({
       redirectTo: '/'
