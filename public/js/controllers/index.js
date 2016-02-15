@@ -5,12 +5,12 @@
 import angular from 'angular';
 
 // controllers
-import IndexCtrlFunc from './home';
+import StudentCtrlFunc from './student';
 import PreReviewCtrlFunc from './preReview';
 
 let controllersModule = angular.module('myAchievement.controllers', []);
 
-controllersModule.controller('IndexCtrl', ['$scope', '$http', IndexCtrlFunc]);
+controllersModule.controller('StudentCtrl', ['$scope', '$http', StudentCtrlFunc]);
 
 controllersModule.controller('PreReviewCtrl', ['$scope', '$http', PreReviewCtrlFunc]);
 

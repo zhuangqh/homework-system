@@ -3,7 +3,7 @@
  */
 
 
-function IndexCtrlFunc($scope, $http) {
+function StudentCtrlFunc($scope, $http) {
 
   $('#my-score').highcharts({
     title: {
@@ -54,4 +54,4 @@ function IndexCtrlFunc($scope, $http) {
   });
 }
 
-export default IndexCtrlFunc;
+export default StudentCtrlFunc;
