@@ -9,6 +9,7 @@ import StudentCtrlFunc from './student';
 import PreReviewCtrlFunc from './preReview';
 import CommentCtrlFunc from './comment';
 import MyCommentCtrlFunc from './myComment';
+import TeacherCtrlFunc from './teacher';
 
 let controllersModule = angular.module('myAchievement.controllers', []);
 
@@ -19,5 +20,7 @@ controllersModule.controller('PreReviewCtrl', ['$scope', '$http', PreReviewCtrlF
 controllersModule.controller('CommentCtrl', ['$scope', '$http', CommentCtrlFunc]);
 
 controllersModule.controller('MyCommentCtrl', ['$scope', '$http', MyCommentCtrlFunc]);
+
+controllersModule.controller('TeacherCtrl', ['$scope', '$http', TeacherCtrlFunc]);
 
 export default controllersModule;
