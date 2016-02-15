@@ -2,8 +2,11 @@
  * Created by zhuangqh on 2016/2/14.
  */
 
-function PreReviewCtrlFunc($scope, $http) {
+function PreReview($scope, $http) {
 
 }
 
-export default PreReviewCtrlFunc;
+export default {
+  name: 'PreReviewCtrl',
+  fn: PreReview
+};

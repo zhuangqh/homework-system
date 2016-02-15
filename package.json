@@ -13,6 +13,8 @@
     "babelify": "^7.2.0",
     "body-parser": "^1.0.2",
     "browserify": "^13.0.0",
+    "bulk-require": "^0.2.1",
+    "bulkify": "^1.1.1",
     "debug": "^2.2.0",
     "error-handler": "^1.0.0",
     "express": "~4.1.1",

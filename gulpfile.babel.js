@@ -15,6 +15,7 @@ import buffer from 'vinyl-buffer';
 import source from 'vinyl-source-stream';
 import watchify from 'watchify';
 import sourcemaps from 'gulp-sourcemaps';
+import bulkify from 'bulkify';
 
 const path = {
   jade: 'views/**/*.jade',
@@ -43,7 +44,7 @@ gulp.task('styles', function () {
 });
 
 function compile(watch) {
-  var bundler = watchify(browserify(path.sjs, { debug: true }).transform(babel));
+  var bundler = watchify(browserify(path.sjs, { debug: true }).transform(babel).transform(bulkify));
 
   function rebundle() {
     bundler.bundle()

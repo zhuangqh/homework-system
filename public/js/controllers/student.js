@@ -3,7 +3,7 @@
  */
 
 
-function StudentCtrlFunc($scope, $http) {
+function Student($scope, $http) {
 
   $('#my-score').highcharts({
     title: {
@@ -54,4 +54,7 @@ function StudentCtrlFunc($scope, $http) {
   });
 }
 
-export default StudentCtrlFunc;
+export default {
+  name: 'StudentCtrl',
+  fn: Student
+};

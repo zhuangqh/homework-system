@@ -25,6 +25,10 @@ function onConfig($routeProvider, $locationProvider) {
       templateUrl: 'partials/teacher',
       controller: 'TeacherCtrl'
     })
+    .when('/teacherAssist', {
+      templateUrl: 'partials/teacherAssist',
+      controller: 'TeacherAssistCtrl'
+    })
     .otherwise({
       redirectTo: '/student'
     });

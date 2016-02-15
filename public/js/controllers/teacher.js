@@ -2,8 +2,11 @@
  * Created by zhuangqh on 2016/2/15.
  */
 
-function TeacherCtrlFunc() {
+function Teacher() {
 
 }
 
-export default TeacherCtrlFunc;
+export default {
+  name: 'TeacherCtrl',
+  fn: Teacher
+};

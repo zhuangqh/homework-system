@@ -2,8 +2,11 @@
  * Created by zhuangqh on 2016/2/15.
  */
 
-function MyCommentCtrlFunc() {
+function MyComment() {
 
 }
 
-export default MyCommentCtrlFunc;
+export default {
+  name: 'MyCommentCtrl',
+  fn: MyComment
+};
