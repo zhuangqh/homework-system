@@ -23,13 +23,26 @@ div.container-fluid
   div.col-md-6#my-score
   div.col-md-6#my-rank
 
+  // homeworks
   div.col-md-3
     div.thumbnail
       div.caption.row
         b.col-md-9 JavaScript Basic
-        span.label.label-primary future
+        span.label.label-primary end
+      img.img-responsive(src='img/rayna.jpg', alt='homework thumbnail')
+      div.caption.row
+        a(href='#').col-md-4 作业链接
+        a(href='#').col-md-4 源文件
+        a(href='/previousReview').col-md-4 查看评论
+
+  div.col-md-3
+    div.thumbnail
+      div.caption.row
+        b.col-md-9 JavaScript Basic
+        span.label.label-success now
       img.img-responsive(src='img/rayna.jpg', alt='homework thumbnail')
       div.caption.row
         a(href='#').col-md-4 作业链接
         a(href='/comment').col-md-4 评论
         a(href='#', data-target='#upload', data-toggle='modal').col-md-4 作业提交
+

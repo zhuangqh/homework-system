@@ -5,16 +5,24 @@
 function onConfig($routeProvider, $locationProvider) {
 
   $routeProvider
-    .when('/', {
-      templateUrl: 'partials/index',
-      controller: 'IndexCtrl'
+    .when('/student', {
+      templateUrl: 'partials/student',
+      controller: 'StudentCtrl'
     })
     .when('/previousReview', {
       templateUrl: 'partials/previousReview',
       controller: 'PreReviewCtrl'
     })
+    .when('/comment', {
+      templateUrl: 'partials/comment',
+      controller: 'CommentCtrl'
+    })
+    .when('/myComment', {
+      templateUrl: 'partials/myComment',
+      controller: 'MyCommentCtrl'
+    })
     .otherwise({
-      redirectTo: '/'
+      redirectTo: '/student'
     });
 
   $locationProvider.html5Mode(true);
