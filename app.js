@@ -33,6 +33,9 @@ module.exports = function (db) {
 
   // serve index and view partials
   app.get('/', routes.index);
+  app.get('/teacher', routes.role);
+  app.get('/teacherAssist', routes.role);
+  app.get('/student', routes.role);
   app.get('/partials/:name', routes.partials);
 
   // JSON API

@@ -5,6 +5,9 @@
 function onConfig($routeProvider, $locationProvider) {
 
   $routeProvider
+    .when('/', {
+      controller: 'LoginCtrl'
+    })
     .when('/student', {
       templateUrl: 'partials/student',
       controller: 'StudentCtrl'
@@ -34,7 +37,7 @@ function onConfig($routeProvider, $locationProvider) {
       controller: 'TACommentCtrl'
     })
     .otherwise({
-      redirectTo: '/student'
+      redirectTo: '/'
     });
 
   $locationProvider.html5Mode(true);

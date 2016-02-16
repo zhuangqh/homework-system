@@ -1,25 +1,19 @@
 extends layout
 
 block body
-  nav.navbar.navbar-default.navbar-fixed-top
-    div.container-fluid
-      div.navbar-header
-        a.navbar-brand My achievement
+  div#login-main
+    div.bg
+      div.login-header
+        p.header-my My
+        p.header-am Achievements
 
-      p.navbar-text 14331401
-      p.navbar-text zhuangqh
-
-      ul.nav.navbar-nav.navbar-right
-        li.dropdown
-          a.dropdown-toggle(href="#",data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false")
-            | 更多
-            span.caret
-          ul.dropdown-menu
-            li
-              a(href='#') 修改密码
-            li
-              a(href='#') 退出
-
-  div#ng-view(ng-view)
-
+      form
+        div.form-group
+          label(for='username') 用户名
+          input.form-control#username(type='text')
+        div.form-group
+          label(for='password') 密码
+          input.form-control#password(type='password')
+        div.login-btn
+          button.btn.btn-success(type='submit') 登录
   script(src='js/app.js')
