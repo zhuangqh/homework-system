@@ -1,0 +1,28 @@
+//
+   Created by zhuangqh on 2016/2/16.
+
+div#pre-review
+  ul.nav.nav-tabs
+    li.active(role='presentaion')
+      a(href='#') 评论
+
+  div.col-md-10.col-md-offset-1#pre-comments
+    p.text-center Homework1-Recipe
+      a.back.btn.btn-link(href='/') 返回
+
+    // comments
+    div.comment-edit-panel
+      div.student-info.col-md-2
+        p.text-center zhuangqh
+        img.img-rounded(src='/img/rayna.jpg')
+        div.row
+          a(href='#') Github地址
+        div.row
+          a(href='#') 源文件
+      form
+        textarea.col-md-8.comment-input
+        div.comment-upload.text-center
+          div.score.input-group
+            input.form-control(type='text', placeholder='分数')
+          br
+          button.btn.btn-primary(type='button') 提交
