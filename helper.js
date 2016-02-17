@@ -114,17 +114,17 @@ mongodb.connect(mongourl).catch(function (error) {
   });
 
   // save records to database
-  studentDB.insertMany(students)
-  .then(function () {
-    return teacherDB.insertOne(teacher);
-  })
-  .then(function () {
-    TADB.insertMany(TAs, function (err) {
-      if (err) throw err;
-      db.close();
+  studentDB.insertMany(students).
+    then(function () {
+      return teacherDB.insertOne(teacher);
+    }).
+    then(function () {
+      TADB.insertMany(TAs, function (err) {
+        if (err) throw err;
+        db.close();
+      });
+    }).
+    catch(function (err) {
+      debug('data import was failed with err');
     });
-  })
-  .catch(function (err) {
-    debug('data import was failed with err', err);
-  });
 });

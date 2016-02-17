@@ -10,9 +10,11 @@ div#login-main
     form(name='login', ng-submit='signin()')
       div.form-group
         label(for='username') 用户名
-        input.form-control#username(type='text')
+        input.form-control#username(type='text', ng-model='user.username', required)
       div.form-group
         label(for='password') 密码
-        input.form-control#password(type='password')
+        input.form-control#password(type='password', ng-model='user.password', required)
+      div.alert.alert-danger.text-center(role='alert', ng-show='!userExist') 用户名不存在
+      div.alert.alert-danger.text-center(role='alert', ng-show='passwordError') 密码错误
       div.login-btn
         button.btn.btn-success(type='submit') 登录

@@ -9,7 +9,9 @@ var express = require('express'),
   morgan = require('morgan'),
   routes = require('./routes'),
   http = require('http'),
-  path = require('path');
+  path = require('path'),
+  session = require('express-session'),
+  FileStore = require('session-file-store')(session);
 
 
 module.exports = function (db) {
@@ -26,6 +28,13 @@ module.exports = function (db) {
   app.use(bodyParser.urlencoded({extended: false}));
   app.use(methodOverride());
   app.use(express.static(path.join(__dirname, 'dist')));
+  app.use(session({
+    store: new FileStore(),
+    resave: false,
+    saveUninitialized: false,
+    secret: 'homework system',
+    cookie: {maxAge: 86400000}
+  }));
 
   /**
    * Routes
@@ -37,7 +46,7 @@ module.exports = function (db) {
 
   // JSON API
   var api = require('./routes/api')(db);
-  app.use('/api/name', api);
+  app.use('/api/', api);
 
   // redirect all others to the index (HTML5 history)
   app.get('*', routes.index);

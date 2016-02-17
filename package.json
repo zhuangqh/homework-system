@@ -19,6 +19,7 @@
     "debug": "^2.2.0",
     "error-handler": "^1.0.0",
     "express": "~4.1.1",
+    "express-session": "^1.13.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-babel": "^6.1.2",
@@ -36,6 +37,7 @@
     "method-override": "^1.0.0",
     "mongodb": "^2.1.7",
     "morgan": "^1.0.0",
+    "session-file-store": "0.0.24",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
