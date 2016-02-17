@@ -2,43 +2,51 @@
  * Created by zhuangqh on 2016/2/15.
  */
 
-function onConfig($routeProvider, $locationProvider) {
+function onConfig($stateProvider, $locationProvider, $urlRouterProvider) {
 
-  $routeProvider
-    .when('/', {
+  $stateProvider
+    .state('login', {
+      url: '/',
+      templateUrl: 'partials/index',
       controller: 'LoginCtrl'
     })
-    .when('/student', {
+    .state('student', {
+      url: '/student',
       templateUrl: 'partials/student',
       controller: 'StudentCtrl'
     })
-    .when('/previousReview', {
+    .state('student.previousReview', {
+      url: '/previousReview',
       templateUrl: 'partials/previousReview',
       controller: 'PreReviewCtrl'
     })
-    .when('/comment', {
+    .state('student.comment', {
+      url: '/comment',
       templateUrl: 'partials/comment',
       controller: 'CommentCtrl'
     })
-    .when('/myComment', {
+    .state('student.myComment', {
+      url: '/myComment',
       templateUrl: 'partials/myComment',
       controller: 'MyCommentCtrl'
     })
-    .when('/teacher', {
+    .state('teacher', {
+      url: '/teacher',
       templateUrl: 'partials/teacher',
       controller: 'TeacherCtrl'
     })
-    .when('/teacherAssist', {
+    .state('teacherAssist', {
+      url: '/teacherAssist',
       templateUrl: 'partials/teacherAssist',
       controller: 'TeacherAssistCtrl'
     })
-    .when('/TAComment', {
+    .state('teacherAssist.TAComment', {
+      url: '/TAComment',
       templateUrl: 'partials/TAComment',
       controller: 'TACommentCtrl'
-    })
-    .otherwise({
-      redirectTo: '/'
     });
+
+  $urlRouterProvider.otherwise('/');
 
   $locationProvider.html5Mode(true);
 }

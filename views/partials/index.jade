@@ -1,4 +1,18 @@
 //
    Created by zhuangqh on 2016/2/16.
 
-p fuck
+div#login-main
+  div.bg
+    div.login-header
+      p.header-my My
+      p.header-am Achievements
+
+    form(name='login', ng-submit='signin()')
+      div.form-group
+        label(for='username') 用户名
+        input.form-control#username(type='text')
+      div.form-group
+        label(for='password') 密码
+        input.form-control#password(type='password')
+      div.login-btn
+        button.btn.btn-success(type='submit') 登录

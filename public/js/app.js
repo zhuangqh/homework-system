@@ -6,6 +6,7 @@ import angular from 'angular';
 
 // angular modules
 import onConfig from './onConfig';
+import 'angular-ui-router';
 import 'angular-route';
 import './controllers';
 import './filters';
@@ -14,7 +15,7 @@ import './services';
 
 // create and bootstrap application
 const requires = [
-  'ngRoute',
+  'ui.router',
   'myAchievement.filters',
   'myAchievement.controllers',
   'myAchievement.services',

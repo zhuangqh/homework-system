@@ -3,7 +3,7 @@
  */
 
 function TAComment() {
-
+  console.log('fuck');
 }
 
 export default {

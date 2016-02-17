@@ -52,6 +52,7 @@ function Student($scope, $http) {
       enabled: false
     }
   });
+
 }
 
 export default {
