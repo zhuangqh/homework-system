@@ -34,6 +34,15 @@ module.exports = function (db) {
         debug('doc in checkUser', doc);
         return doc ? Promise.resolve() : Promise.reject();
       });
+    },
+
+    getProfile: function (username) {
+      var profile = {'username': username};
+      return studentDB.findOne(profile).then(function (doc) {
+        profile.name = doc.name;
+        debug(profile);
+        return Promise.resolve(profile);
+      });
     }
   };
 };

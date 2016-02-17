@@ -24,8 +24,8 @@ nav.navbar.navbar-default.navbar-fixed-top
     div.navbar-header
       a.navbar-brand My achievement
 
-    p.navbar-text 14331401
-    p.navbar-text zhuangqh
+    p.navbar-text {{user.username}}
+    p.navbar-text {{user.name}}
 
     ul.nav.navbar-nav.navbar-right
       li.dropdown
@@ -36,7 +36,7 @@ nav.navbar.navbar-default.navbar-fixed-top
           li
             a(href='#') 修改密码
           li
-            a(href='#') 退出
+            a(href='#', ng-click='logout()') 退出
 
 div.main-view
   div.container-fluid

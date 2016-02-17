@@ -38,6 +38,7 @@ function Homework() {
   this.githubLink = '';
   this.postscript = '';
   this.snapshot = '';
+  this.status = 'now';
   this.comments = [];
 }
 

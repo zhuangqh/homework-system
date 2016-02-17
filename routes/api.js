@@ -20,6 +20,16 @@ module.exports = function (db) {
     res.send(data);
   });
 
+  router.get('/profile', function (req, res) {
+    manager.getProfile(req.session.user.username)
+      .then(function (profile) {
+        res.send(profile);
+      })
+      .catch(function (err) {
+        debug('get profile failed with error', err);
+        res.json(true);
+      });
+  });
 
   // POST
   router.post('/checkUser', function (req, res) {
