@@ -4,8 +4,7 @@
 
 function Login($scope, $http, $location) {
   $scope.signin = function () {
-    console.log('fck');
-    $location.url('/student');
+
   };
 
 }

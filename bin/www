@@ -2,7 +2,7 @@ var mongodb = require('mongodb').MongoClient,
   debug = require('debug')('hs:server'),
   http = require('http');
 
-var mongourl = 'mongodb://localhost:27017/blog';
+var mongourl = 'mongodb://localhost:27017/hs';
 
 mongodb.connect(mongourl).catch(function (error) {
   debug('Connect to mongodb ' + mongourl + 'was failed with error ', error);

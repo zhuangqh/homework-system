@@ -9,5 +9,7 @@ var express = require('express'),
 module.exports = function (db) {
   debug('api works as normal');
 
+  var manager = require('../models/index')(db);
+
   return router;
 };
