@@ -7,11 +7,14 @@ import angular from 'angular';
 // angular modules
 import onConfig from './onConfig';
 import 'angular-ui-router';
-import 'angular-route';
 import './controllers';
 import './filters';
 import './directives';
 import './services';
+
+// webuploader
+import './lib/webuploader.html5only.min';
+import 'bootstrap';
 
 // create and bootstrap application
 const requires = [

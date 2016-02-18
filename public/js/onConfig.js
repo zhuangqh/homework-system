@@ -7,43 +7,91 @@ function onConfig($stateProvider, $locationProvider, $urlRouterProvider) {
   $stateProvider
     .state('login', {
       url: '/',
-      templateUrl: 'partials/index',
-      controller: 'LoginCtrl'
+      views: {
+        "content": {
+          templateUrl: 'partials/index',
+          controller: 'LoginCtrl'
+        }
+      }
     })
     .state('student', {
       url: '/student',
-      templateUrl: 'partials/student',
-      controller: 'StudentCtrl'
+      views: {
+        "nav": {
+          templateUrl: 'partials/student_nav',
+          controller: 'StudentNavCtrl'
+        },
+        "content": {
+          templateUrl: 'partials/student',
+          controller: 'StudentCtrl'
+        }
+      }
     })
-    .state('student.previousReview', {
+    .state('previousReview', {
       url: '/previousReview',
-      templateUrl: 'partials/previousReview',
-      controller: 'PreReviewCtrl'
+      views: {
+        "nav": {
+          templateUrl: 'partials/student_nav',
+          controller: 'StudentNavCtrl'
+        },
+        "content": {
+          templateUrl: 'partials/previousReview',
+          controller: 'PreReviewCtrl'
+        }
+      }
     })
-    .state('student.comment', {
+    .state('comment', {
       url: '/comment',
-      templateUrl: 'partials/comment',
-      controller: 'CommentCtrl'
+      views: {
+        "nav": {
+          templateUrl: 'partials/student_nav',
+          controller: 'StudentNavCtrl'
+        },
+        "content": {
+          templateUrl: 'partials/comment',
+          controller: 'CommentCtrl'
+        }
+      }
     })
-    .state('student.myComment', {
+    .state('myComment', {
       url: '/myComment',
-      templateUrl: 'partials/myComment',
-      controller: 'MyCommentCtrl'
+      views: {
+        "nav": {
+          templateUrl: 'partials/student_nav',
+          controller: 'StudentNavCtrl'
+        },
+        "content": {
+          templateUrl: 'partials/myComment',
+          controller: 'MyCommentCtrl'
+        }
+      }
     })
     .state('teacher', {
       url: '/teacher',
-      templateUrl: 'partials/teacher',
-      controller: 'TeacherCtrl'
+      views: {
+        "content": {
+          templateUrl: 'partials/teacher',
+          controller: 'TeacherCtrl'
+        }
+      }
     })
     .state('teacherAssist', {
       url: '/teacherAssist',
-      templateUrl: 'partials/teacherAssist',
-      controller: 'TeacherAssistCtrl'
+      views: {
+        "content": {
+          templateUrl: 'partials/teacherAssist',
+          controller: 'TeacherAssistCtrl'
+        }
+      }
     })
-    .state('teacherAssist.TAComment', {
+    .state('TAComment', {
       url: '/TAComment',
-      templateUrl: 'partials/TAComment',
-      controller: 'TACommentCtrl'
+      views: {
+        "content": {
+          templateUrl: 'partials/TAComment',
+          controller: 'TACommentCtrl'
+        }
+      }
     });
 
   $urlRouterProvider.otherwise('/');

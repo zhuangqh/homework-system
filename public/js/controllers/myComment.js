@@ -3,7 +3,7 @@
  */
 
 function MyComment() {
-
+  console.log('mycomment');
 }
 
 export default {

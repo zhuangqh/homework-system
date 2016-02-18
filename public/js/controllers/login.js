@@ -2,16 +2,19 @@
  * Created by zhuangqh on 2016/2/16.
  */
 
-function Login($scope, $http, $location) {
+function Login($scope, $http, $state) {
+  $('#content').removeClass('user-view');
   // redirect the page according to the user
   function redirect(username) {
+    var state;
     if (username === 'teacher') {
-      $location.url('/teacher');
+      state = 'teacher';
     } else if (username.indexOf('TA') != -1) {
-      $location.url('/teacherAssist');
+      state = 'teacherAssist';
     } else {
-      $location.url('/student');
+      state = 'student';
     }
+    $state.go(state);
   }
 
   $scope.user = {
@@ -54,7 +57,7 @@ function Login($scope, $http, $location) {
 
 }
 
-Login.$inject=['$scope', '$http', '$location'];
+Login.$inject=['$scope', '$http', '$state'];
 
 export default {
   name: 'LoginCtrl',

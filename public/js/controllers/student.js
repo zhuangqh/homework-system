@@ -3,7 +3,7 @@
  */
 
 
-function Student($scope, $http, $location) {
+function Student($scope, $http, $location, $state) {
 
   $('#my-score').highcharts({
     title: {
@@ -55,25 +55,19 @@ function Student($scope, $http, $location) {
 
   $scope.user = {
     username: '',
-    name: ''
+    name: '',
+    homeworks: []
   };
+
 
   $http.get('/api/profile')
     .success(function (info) {
-      $scope.user.username = info.username;
-      $scope.user.name = info.name;
+      $scope.user.homeworks = info.homeworks;
     });
 
-  // 登出
-  $scope.logout = function () {
-    $http.post('/api/logout')
-      .success(function () {
-        $location.url('/');
-      });
-  }
 }
 
-Student.$inject = ['$scope', '$http', '$location'];
+Student.$inject = ['$scope', '$http', '$location', '$state'];
 
 export default {
   name: 'StudentCtrl',
