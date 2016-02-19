@@ -82,6 +82,10 @@ function onConfig($stateProvider, $locationProvider, $urlRouterProvider) {
     .state('teacherAssist', {
       url: '/teacherAssist',
       views: {
+        "nav": {
+          templateUrl: 'partials/teacherAssist_nav',
+          controller: 'TeacherAssistNavCtrl'
+        },
         "content": {
           templateUrl: 'partials/teacherAssist',
           controller: 'TeacherAssistCtrl'
@@ -89,8 +93,12 @@ function onConfig($stateProvider, $locationProvider, $urlRouterProvider) {
       }
     })
     .state('TAComment', {
-      url: '/TAComment',
+      url: '/TAComment/:id',
       views: {
+        "nav": {
+          templateUrl: 'partials/teacherAssist_nav',
+          controller: 'TeacherAssistNavCtrl'
+        },
         "content": {
           templateUrl: 'partials/TAComment',
           controller: 'TACommentCtrl'

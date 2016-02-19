@@ -5,8 +5,8 @@
 function StudentNav($scope, $http, $state) {
   // 检查是否已登录并跳转
   $http.get('/api/hasLogin')
-    .success(function (data) {
-      if (!data.isLogin) {
+    .success(function (res) {
+      if (!res.isLogin) {
         $state.go('login');
       }
     });
