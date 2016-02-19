@@ -1,57 +1,44 @@
 //
    Created by zhuangqh on 2016/2/15.
 
-nav.navbar.navbar-default.navbar-fixed-top
-  div.container-fluid
-    div.navbar-header
-      a.navbar-brand My achievement
-
-    p.navbar-text 14331401
-    p.navbar-text zhuangqh
-
-    ul.nav.navbar-nav.navbar-right
-      li.dropdown
-        a.dropdown-toggle(href="#",data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false")
-          | 更多
-          span.caret
-        ul.dropdown-menu
-          li
-            a(href='#') 修改密码
-          li
-            a(href='#', ng-click='logout()') 退出
-
 div.main-view#teacher-view
   div.page-header.text-center
     h1 作业发布
   div.col-md-4.col-md-offset-4#homework-info
-    form
+    form(name='form', ng-submit='addHomework()')
       div.form-group
-        label(for="homework-name") 作业名称
-        input.form-control#homework-name(type='text')
+        label(for="homework-id") 作业编号
+        input.form-control#homework-id(type='text', ng-model='HWForm.homeworkId', required)
+      div.form-group
+        label(for="homework-title") 作业名称
+        input.form-control#homework-title(type='text', ng-model='HWForm.title', required)
       div.form-group
         label(for='homework-link') 作业链接
-        input.form-control#homework-link(type='text')
+        input.form-control#homework-link(type='text', ng-model='HWForm.link', required)
       div.form-group
         label(for='homework-startTime') 开始时间
-        input.form-control#homework-startTime(type='text')
+        input.form-control#homework-startTime(type='text', value='2016-02-19 00:00', readonly, ng-model='HWForm.startTime')
       div.form-group
         label(for='homework-endTime') 结束时间
-        input.form-control#homework-endTime(type='text')
-      button.btn.btn-primary(type='submit') 发布
+        input.form-control#homework-endTime(type='text', value='2016-02-20 00:00', readonly, ng-model='HWForm.endTime')
+      div.alert.alert-danger.text-center(role='alert', ng-show='!timeValid') 请选择合适的时间
+      button.btn.btn-primary(type='submit', ng-disabled='!timeValid') 发布
 
   div.col-md-8.col-md-offset-2#homework-list
     h2.text-center 作业列表
     table.table.table-hover
-      tr
-        th #
-        th 作业名称
-        th 作业链接
-        th 开始时间
-        th 结束时间
-      tr
-        td 1
-        td Homework-recipe
-        td
-          a(href='#') 这里
-        td 2016-1-1
-        td 2016-1-2
+      thead
+        tr
+          th #
+          th 作业名称
+          th 作业链接
+          th 开始时间
+          th 结束时间
+      tbody(ng-repeat='homework in homeworks')
+        tr
+          td {{homework.homeworkId}}
+          td {{homework.title}}
+          td
+            a(href='{{homework.link}}') 这里
+          td {{homework.startTime}}
+          td {{homework.endTime}}

@@ -19,50 +19,23 @@ div#upload.modal.fade(role='dialog', aria-labelledby='uploadLabel')
         button.btn.btn-default(type='button', data-dismiss='modal') 取消
         button.btn.btn-primary(type='button') 提交
 
-nav.navbar.navbar-default.navbar-fixed-top
-  div.container-fluid
-    div.navbar-header
-      a.navbar-brand My achievement
 
-    p.navbar-text {{user.username}}
-    p.navbar-text {{user.name}}
+div.container-fluid
+  div.col-md-6#my-score
+  div.col-md-6#my-rank
 
-    ul.nav.navbar-nav.navbar-right
-      li.dropdown
-        a.dropdown-toggle(href="#",data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false")
-          | 更多
-          span.caret
-        ul.dropdown-menu
-          li
-            a(href='#') 修改密码
-          li
-            a(href='#', ng-click='logout()') 退出
-
-div.main-view
-  div.container-fluid
-    div.col-md-6#my-score
-    div.col-md-6#my-rank
-
-    // homeworks
+  div.homeworks(ng-repeat='homework in user.homeworks')
     div.col-md-3
       div.thumbnail
         div.caption.row
-          b.col-md-9 JavaScript Basic
-          span.label.label-primary end
+          b.col-md-9 Homework:{{homework.homeworkId}}{{homework.title}}
+          span.label.label-primary {{homework.status}}
         img.img-responsive(src='img/rayna.jpg', alt='homework thumbnail')
-        div.caption.row
-          a(href='#').col-md-4 作业链接
+        div.caption.row(ng-show="homework.status == 'end'")
+          a(href='{{homework.link}}').col-md-4 作业链接
           a(href='#').col-md-4 源文件
           a(href='/previousReview').col-md-4 查看评论
-
-    div.col-md-3
-      div.thumbnail
-        div.caption.row
-          b.col-md-9 JavaScript Basic
-          span.label.label-success now
-        img.img-responsive(src='img/rayna.jpg', alt='homework thumbnail')
-        div.caption.row
-          a(href='#').col-md-4 作业链接
+        div.caption.row(ng-show="homework.status == 'now'")
+          a(href='{{homework.link}}').col-md-4 作业链接
           a(href='/comment').col-md-4 评论
-          a(href='#', data-target='#upload', data-toggle='modal').col-md-4 作业提交
-
+          a(href='#', data-target='#upload', data-toggle='modal').col-md-4 提交

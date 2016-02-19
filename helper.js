@@ -34,6 +34,8 @@ function TeacherAssist() {
 // definition of homework
 function Homework() {
   this.homeworkId = '1';
+  this.title = 'HTML Basic';
+  this.link = 'https://github.com/zhuangqh';
   this.codePackage = '';
   this.githubLink = '';
   this.postscript = '';

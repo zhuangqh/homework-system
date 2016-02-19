@@ -69,6 +69,10 @@ function onConfig($stateProvider, $locationProvider, $urlRouterProvider) {
     .state('teacher', {
       url: '/teacher',
       views: {
+        "nav": {
+          templateUrl: 'partials/teacher_nav',
+          controller: 'TeacherNavCtrl'
+        },
         "content": {
           templateUrl: 'partials/teacher',
           controller: 'TeacherCtrl'

@@ -4,6 +4,12 @@
 
 import angular from 'angular';
 
+// library
+import './lib/webuploader.html5only.min';
+import 'bootstrap';
+import 'highcharts';
+window.moment = require('moment');
+
 // angular modules
 import onConfig from './onConfig';
 import 'angular-ui-router';
@@ -12,9 +18,6 @@ import './filters';
 import './directives';
 import './services';
 
-// webuploader
-import './lib/webuploader.html5only.min';
-import 'bootstrap';
 
 // create and bootstrap application
 const requires = [

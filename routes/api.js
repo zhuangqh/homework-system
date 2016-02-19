@@ -31,6 +31,16 @@ module.exports = function (db) {
       });
   });
 
+  router.get('/homeworkList', function (req, res) {
+    manager.getHomeworks()
+      .then(function (lists) {
+        res.send(lists);
+      })
+      .catch(function () {
+        debug('fail to get homework lists');
+        res.send(true);
+      });
+  });
   // POST
   router.post('/checkUser', function (req, res) {
     var user = req.body;
@@ -61,6 +71,19 @@ module.exports = function (db) {
   router.post('/logout', function (req, res) {
     delete req.session.user;
     res.send(true);
+  });
+
+
+  router.post('/addHomework', function (req, res) {
+    debug('homework about to add ', req.body);
+    manager.addHomework(req.body)
+      .then(function () {
+        res.send(true);
+      })
+      .catch(function (err) {
+        debug('fail to add homework with error', err);
+        res.send(true);
+      });
   });
 
   return router;

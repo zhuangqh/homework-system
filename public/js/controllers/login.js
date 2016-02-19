@@ -2,20 +2,23 @@
  * Created by zhuangqh on 2016/2/16.
  */
 
+// redirect the page according to the user
+function redirect(username, $state) {
+  var state;
+  if (username === 'teacher') {
+    state = 'teacher';
+  } else if (username.indexOf('TA') != -1) {
+    state = 'teacherAssist';
+  } else {
+    state = 'student';
+  }
+  $state.go(state);
+}
+
+window.redirect = redirect;
+
 function Login($scope, $http, $state) {
   $('#content').removeClass('user-view');
-  // redirect the page according to the user
-  function redirect(username) {
-    var state;
-    if (username === 'teacher') {
-      state = 'teacher';
-    } else if (username.indexOf('TA') != -1) {
-      state = 'teacherAssist';
-    } else {
-      state = 'student';
-    }
-    $state.go(state);
-  }
 
   $scope.user = {
     username: '',
@@ -28,7 +31,7 @@ function Login($scope, $http, $state) {
   $http.get('/api/hasLogin')
     .success(function (data) {
       if (data.isLogin) {
-        redirect(data.username);
+        redirect(data.username, $state);
       }
     });
 
@@ -50,7 +53,7 @@ function Login($scope, $http, $state) {
         if (res.passwordError) {
           $scope.passwordError = true;
         } else {
-          redirect($scope.user.username);
+          redirect($scope.user.username, $state);
         }
       });
   };
