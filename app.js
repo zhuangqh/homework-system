@@ -11,7 +11,8 @@ var express = require('express'),
   http = require('http'),
   path = require('path'),
   session = require('express-session'),
-  FileStore = require('session-file-store')(session);
+  FileStore = require('session-file-store')(session),
+  multer = require('multer');
 
 
 module.exports = function (db) {

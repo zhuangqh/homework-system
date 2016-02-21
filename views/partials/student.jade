@@ -8,16 +8,26 @@ div#upload.modal.fade(role='dialog', aria-labelledby='uploadLabel')
         button.close(type='button', data-dismiss='modal', aria-label='Close')
           span(aria-hidden='true') &times;
       div.modal-body
-        form
+        form(name='form', ng-submit='handInHW()')
           div.form-group
             label(for='githubLink') Github 地址
-            input.form-control#githubLink(type='text')
+            input.form-control#githubLink(type='text', ng-model='HWInfo.githubLink')
           div.form-group
             label(for='postscript') 附言
-            textarea.form-control#postscript(rows='3')
+            textarea.form-control#postscript(rows='3', ng-model='HWInfo.postscript')
+          div.form-group
+            label(for='snapshot') 截图
+            input.form-control#snapshot(type='file', nv-file-select='', uploader='uploadImg')
+            div.progress
+              div.progress-bar(role='progressbar', ng-style="{'width': uploadImg.progress + '%'}")
+          div.form-group
+            label(for='codePackage') 文件
+            input.form-control#codePackage(type='file', nv-file-select='', uploader='uploadZip')
+            div.progress
+              div.progress-bar(role='progressbar', ng-style="{'width': uploadZip.progress + '%'}")
+          button.btn.btn-primary(type='submit') 提交
       div.modal-footer
-        button.btn.btn-default(type='button', data-dismiss='modal') 取消
-        button.btn.btn-primary(type='button') 提交
+        button.btn.btn-default(type='button', data-dismiss='modal') 关闭
 
 
 div.container-fluid
@@ -29,7 +39,9 @@ div.container-fluid
       div.thumbnail
         div.caption.row
           b.col-md-9 Homework:{{homework.homeworkId}}{{homework.title}}
-          span.label.label-primary {{homework.status}}
+          span.label.label-default(ng-show="homework.status == 'end'") {{homework.status}}
+          span.label.label-success(ng-show="homework.status == 'now'") {{homework.status}}
+          span.label.label-primary(ng-show="homework.status == 'future'") {{homework.status}}
         img.img-responsive(src='img/rayna.jpg', alt='homework thumbnail')
         div.caption.row(ng-show="homework.status == 'end'")
           a(href='{{homework.link}}').col-md-4 作业链接
@@ -38,4 +50,6 @@ div.container-fluid
         div.caption.row(ng-show="homework.status == 'now'")
           a(href='{{homework.link}}').col-md-4 作业链接
           a(href='/comment').col-md-4 评论
-          a(href='#', data-target='#upload', data-toggle='modal').col-md-4 提交
+          a(href='#{{homework.homeworkId}}', data-target='#upload', data-toggle='modal').col-md-4 提交
+        div.caption.row(ng-show="homework.status == 'future'")
+          a(href='{{homework.link}}').col-md-4 作业链接

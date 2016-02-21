@@ -5,13 +5,14 @@
 import angular from 'angular';
 
 // library
-import './lib/webuploader.html5only.min';
+
 import 'bootstrap';
 import 'highcharts';
 window.moment = require('moment');
 
 // angular modules
 import onConfig from './onConfig';
+import 'angular-file-upload';
 import 'angular-ui-router';
 import './controllers';
 import './filters';
@@ -22,6 +23,7 @@ import './services';
 // create and bootstrap application
 const requires = [
   'ui.router',
+  'angularFileUpload',
   'myAchievement.filters',
   'myAchievement.controllers',
   'myAchievement.services',

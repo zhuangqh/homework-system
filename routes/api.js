@@ -4,7 +4,10 @@
 
 var express = require('express'),
   router = express.Router(),
-  debug = require('debug')('hs:api');
+  debug = require('debug')('hs:api'),
+  path = require('path'),
+  multi = require('multiparty'),
+  fs = require('fs');
 
 module.exports = function (db) {
   debug('api works as normal');
@@ -86,5 +89,69 @@ module.exports = function (db) {
       });
   });
 
+  router.post('/handInFile', function (req, res) {
+    var form = new multi.Form({uploadDir: 'dist/uploads'});
+    var homeworkId = req.query.id;
+    var username = req.session.user.username;
+
+    form.parse(req, function (err, fields, files) {
+      var originalpath = files.file[0].path;
+      var destDir = path.join('dist', 'uploads', username);
+      var destPath = path.join(destDir, 'HW' + homeworkId + '-' + files.file[0].originalFilename);
+
+      fs.rename(originalpath, destPath, function (err) {
+        if (err) {
+          move();
+        }
+      });
+      // if the destination is not exist, move the file
+      function move() {
+        fs.mkdir(destDir, function (err) {
+          if (err) {
+            debug(err);
+          } else {
+            debug('create directory success');
+            fs.rename(originalpath, destPath, function (err) {
+              if (err) {
+                debug(err);
+              }
+            });
+          }
+        });
+      }
+      // save the src of file to database
+      var fileSrc = '/uploads/' + 'HW' + homeworkId + '-' + files.file[0].originalFilename;
+      var user = {
+        'username': username,
+        'homeworks.homeworkId': homeworkId
+      };
+      manager.handInHomework(user, {fileId: req.query.type, src: fileSrc})
+        .then(function () {
+          res.end();
+        })
+        .catch(function (err) {
+          debug('fail to hand in homework ', err);
+          res.end();
+        });
+    });
+  });
+
+  router.post('/handInHW', function (req, res) {
+    var query = req.body;
+    var user = {
+      'username': req.session.user.username,
+      'homeworks.homeworkId': query.homeworkId
+    };
+    delete query.homeworkId;
+    query.fileId = 'extra';
+    manager.handInHomework(user, query)
+      .then(function () {
+        res.end();
+      })
+      .catch(function (err) {
+        debug('fail to add extra info to homework', err);
+      });
+    res.send();
+  });
   return router;
 };

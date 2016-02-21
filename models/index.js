@@ -2,9 +2,12 @@
  * Created by zhuangqh on 2016/2/17.
  */
 
-var debug = require('debug')('hs:manager');
+var debug = require('debug')('hs:manager'),
+  _ = require('lodash'),
+  moment = require('moment');
 
 module.exports = function (db) {
+  debug('model work as normal');
   var studentDB = db.collection('students'),
     teacherDB = db.collection('teacher'),
     TADB = db.collection('TAs'),
@@ -18,6 +21,23 @@ module.exports = function (db) {
     } else {
       return studentDB;
     }
+  }
+
+  function generateDistribution(num) {
+    var len = num / 4;
+    var ans = [], visit = [], p;
+
+    visit = _.times(len, function () {
+      return false;
+    });
+    for (var i = 1; i <= len; i += 1) {
+      p = i;
+      while (p == i || visit[p])
+        p = _.random(1, len);
+      visit[p] = true;
+      ans[p] = i;
+    }
+    return ans;
   }
 
   return {
@@ -42,12 +62,21 @@ module.exports = function (db) {
       return studentDB.findOne(profile).then(function (doc) {
         profile.name = doc.name;
         profile.homeworks = doc.homeworks;
-        debug(profile);
+        profile.homeworks.forEach(function (record) {
+          if (moment().isBefore(moment(record.startTime))) {
+            record.status = 'future';
+          } else if (moment().isAfter(moment(record.endTime))) {
+            record.status = 'end';
+          } else {
+            record.status = 'now';
+          }
+        });
         return Promise.resolve(profile);
       });
     },
 
     addHomework: function (homework) {
+      homework.distribution = generateDistribution(40);
       return homeworkDB.insert(homework).then(function () {
         return studentDB.updateMany({}, {'$push': {"homeworks": homework}});
       });
@@ -58,8 +87,25 @@ module.exports = function (db) {
         HWs.forEach(function (ele) {
           delete ele._id;
         });
+
         return Promise.resolve({homeworks: HWs});
       });
+    },
+
+    handInHomework: function (user, file) {
+      var updateOp = {};
+      var prefix = 'homeworks.$.';
+      if (file.fileId == 'snapshot') {
+        updateOp[prefix + 'snapshot'] = file.src;
+      } else if (file.fileId == 'codePackage') {
+        updateOp[prefix + 'codePackage'] = file.src;
+      } else if (file.fileId == 'extra') {
+        updateOp[prefix + 'githubLink'] = file.githubLink;
+        updateOp[prefix + 'postscript'] = file.postscript;
+      } else {
+        return Promise.reject();
+      }
+      return studentDB.updateOne(user, {'$set': updateOp});
     }
   };
 };

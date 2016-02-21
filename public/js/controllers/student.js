@@ -3,71 +3,48 @@
  */
 
 
-function Student($scope, $http, $location, $state) {
-
-  $('#my-score').highcharts({
-    title: {
-      text: 'My Score'
-    },
-    xAxis: {
-      categories: ['hw1', 'hw2', 'hw3', 'hw4', 'hw5', 'hw6']
-    },
-    yAxis: {
-      max: 100
-    },
-    series: [{
-      name: 'score',
-      type: 'column',
-      data: [95, 99, 91, 50, 98, 100]
-    }, {
-      name: 'score',
-      type: 'line',
-      data: [95, 99, 91, 50, 98, 100]
-    }],
-    credits: {
-      enabled: false
-    }
-  });
-
-  $('#my-rank').highcharts({
-    title: {
-      text: 'My Rank'
-    },
-    xAxis: {
-      categories: ['hw1', 'hw2', 'hw3', 'hw4', 'hw5', 'hw6']
-    },
-    yAxis: {
-      max: 100
-    },
-    series: [{
-      name: 'rank',
-      type: 'column',
-      data: [95, 99, 91, 50, 98, 100]
-    }, {
-      name: 'rank',
-      type: 'line',
-      data: [95, 99, 91, 50, 98, 100]
-    }],
-    credits: {
-      enabled: false
-    }
-  });
-
+function Student($scope, $http, $state, FileUploader) {
   $scope.user = {
     username: '',
     name: '',
     homeworks: []
   };
 
+  $scope.HWInfo = {
+    homeworkId: '',
+    githubLink: '',
+    postscript: ''
+  };
+
+  var uploadImg = $scope.uploadImg = new FileUploader();
+  var uploadZip = $scope.uploadZip = new FileUploader();
 
   $http.get('/api/profile')
     .success(function (info) {
       $scope.user.homeworks = info.homeworks;
+      for (var i = 0; i < info.homeworks.length; i += 1) {
+        if (info.homeworks[i].status == 'now') {
+          $scope.HWInfo.homeworkId = String(i + 1);
+          $scope.uploadImg.url = '/api/handInFile/?type=snapshot&id=' + $scope.HWInfo.homeworkId;
+          $scope.uploadZip.url = '/api/handInFile/?type=codePackage&id=' + $scope.HWInfo.homeworkId;
+          break;
+        }
+      }
     });
+
+  $scope.handInHW = function () {
+    uploadImg.uploadAll();
+    uploadZip.uploadAll();
+    $http.post('/api/handInHW', $scope.HWInfo)
+      .success(function () {
+        console.log('success');
+      });
+  };
+
 
 }
 
-Student.$inject = ['$scope', '$http', '$location', '$state'];
+Student.$inject = ['$scope', '$http', '$state', 'FileUploader'];
 
 export default {
   name: 'StudentCtrl',
