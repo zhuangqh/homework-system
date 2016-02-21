@@ -44,6 +44,36 @@ module.exports = function (db) {
         res.send(true);
       });
   });
+
+  router.get('/comment/:id', function (req, res) {
+    manager.getComments(req.session.user.username, req.params.id)
+      .then(function (comments) {
+        res.send(comments);
+      })
+      .catch(function () {
+        debug(err);
+      });
+  });
+
+  router.get('/myComment/:id', function (req, res) {
+    manager.getMyComments(req.session.user.username, req.params.id)
+      .then(function (lists) {
+        res.send(lists);
+      })
+      .catch(function (err) {
+        debug('fail to get my comments', err);
+      });
+  });
+
+  router.get('/commentTitle/:id', function (req, res) {
+    manager.getCommentTitle(req.params.id)
+      .then(function (data) {
+        res.send(data);
+      })
+      .catch(function (err) {
+        debug('fail to get comment title', err);
+      });
+  });
   // POST
   router.post('/checkUser', function (req, res) {
     var user = req.body;
@@ -120,7 +150,7 @@ module.exports = function (db) {
         });
       }
       // save the src of file to database
-      var fileSrc = '/uploads/' + 'HW' + homeworkId + '-' + files.file[0].originalFilename;
+      var fileSrc = '/uploads/' + username + '/HW' + homeworkId + '-' + files.file[0].originalFilename;
       var user = {
         'username': username,
         'homeworks.homeworkId': homeworkId
@@ -153,5 +183,23 @@ module.exports = function (db) {
       });
     res.send();
   });
+
+  router.post('/comment/:id', function (req, res) {
+    var homeworkId = req.params.id;
+    var originalComment = req.body;
+    var user = {
+      'username': originalComment.username,
+      'comments.homeworkId': homeworkId
+    };
+    delete originalComment.username;
+    manager.addComment(user, originalComment, req.session.user.username)
+      .then(function () {
+        res.end()
+      })
+      .catch(function (err) {
+        debug('fail to add comment', err);
+      });
+  });
+
   return router;
 };

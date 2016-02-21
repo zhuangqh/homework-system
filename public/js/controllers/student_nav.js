@@ -13,13 +13,15 @@ function StudentNav($scope, $http, $state) {
 
   $scope.user = {
     username: '',
-    name: ''
+    name: '',
+    group: ''
   };
 
   $http.get('/api/profile')
     .success(function (info) {
       $scope.user.username = info.username;
       $scope.user.name = info.name;
+      $scope.user.group = info.group;
     });
 
   // 登出

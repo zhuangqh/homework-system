@@ -62,6 +62,7 @@ module.exports = function (db) {
       return studentDB.findOne(profile).then(function (doc) {
         profile.name = doc.name;
         profile.homeworks = doc.homeworks;
+        profile.group = doc.group;
         profile.homeworks.forEach(function (record) {
           if (moment().isBefore(moment(record.startTime))) {
             record.status = 'future';
@@ -75,11 +76,51 @@ module.exports = function (db) {
       });
     },
 
-    addHomework: function (homework) {
-      homework.distribution = generateDistribution(40);
-      return homeworkDB.insert(homework).then(function () {
-        return studentDB.updateMany({}, {'$push': {"homeworks": homework}});
+    getComments: function (username, homeworkId) {
+      var homeworkIndex = parseInt(homeworkId)-1;
+
+      return studentDB.findOne({'username': username}).then(function (doc) {
+        var groupToComment = doc.homeworks[homeworkIndex].distribution[doc.group];
+
+        return studentDB.find({'group': groupToComment}).toArray().then(function (HWs) {
+
+          var HWToComment = _.times(HWs.length, function (index) {
+            var record = {};
+            record.username = HWs[index].username;
+            record.name = HWs[index].name;
+            record.snapshot = HWs[index].homeworks[homeworkIndex].snapshot;
+            record.githubLink = HWs[index].homeworks[homeworkIndex].githubLink;
+            record.codePackage = HWs[index].homeworks[homeworkIndex].codePackage;
+            return record;
+          });
+          debug('fuck', HWToComment);
+          return Promise.resolve(HWToComment);
+        });
       });
+    },
+
+    getMyComments: function (username, homeworkId) {
+      return studentDB.findOne({'username': username}).then(function (doc) {
+        var homeworkIndex = parseInt(homeworkId) - 1;
+        var lists = doc.comments[homeworkIndex];
+        delete lists.homeworkId;
+        debug(lists);
+        return Promise.resolve(lists);
+      });
+    },
+
+    getCommentTitle: function (homeworkId) {
+      return homeworkDB.findOne({'homeworkId': homeworkId}).then(function (doc) {
+        var res = {};
+        res.title = 'Homework' + homeworkId + '-' + doc.title;
+        return Promise.resolve(res);
+      });
+    },
+
+    addComment: function (user, comment, reviewer) {
+      var updateOp = {};
+      updateOp['comments.$.' + reviewer] = comment;
+      return studentDB.updateOne(user, {'$set': updateOp});
     },
 
     getHomeworks: function () {
@@ -89,6 +130,13 @@ module.exports = function (db) {
         });
 
         return Promise.resolve({homeworks: HWs});
+      });
+    },
+
+    addHomework: function (homework) {
+      homework.distribution = generateDistribution(40);
+      return homeworkDB.insert(homework).then(function () {
+        return studentDB.updateMany({}, {'$push': {"homeworks": homework}});
       });
     },
 

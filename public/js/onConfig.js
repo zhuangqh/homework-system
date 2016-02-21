@@ -41,7 +41,7 @@ function onConfig($stateProvider, $locationProvider, $urlRouterProvider) {
       }
     })
     .state('comment', {
-      url: '/comment',
+      url: '/comment/:id',
       views: {
         "nav": {
           templateUrl: 'partials/student_nav',
@@ -54,7 +54,7 @@ function onConfig($stateProvider, $locationProvider, $urlRouterProvider) {
       }
     })
     .state('myComment', {
-      url: '/myComment',
+      url: '/myComment/:id',
       views: {
         "nav": {
           templateUrl: 'partials/student_nav',

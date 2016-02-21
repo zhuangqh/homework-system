@@ -1,20 +1,21 @@
 //
    Created by zhuangqh on 2016/2/15.
 
-div#pre-review
+div.pre-review
   ul.nav.nav-tabs
     li(role='presentaion')
-      a(href='/comment') 评论
+      a(href='/comment/{{homeworkId}}') 评论
     li.active(role='presentation')
       a(href='/myComment') 我的评论
 
-  div.col-md-10.col-md-offset-1#pre-comments
-    p.text-center Homework1-Recipe
+  div#my-comments
+    p.text-center {{commentTitle}}
       a.back.btn.btn-link(href='/student') 返回
+    div.col-md-10.col-md-offset-1.pre-comments(ng-repeat='(reviewer, comment) in myCommentList')
 
-    // comments
-    div.comment-panel
-      div.col-md-10.comment
-        p 首页很好，用到了css动画； 结构清晰。
-      div.pre-score.text-center
-        p 99
+      // comments
+      div.comment-panel
+        div.col-md-10.comment
+          p {{comment.comment}}
+        div.pre-score.text-center
+          p {{comment.score}}
