@@ -55,6 +55,16 @@ module.exports = function (db) {
       });
   });
 
+  router.get('/TAComment/:id', function (req, res) {
+    manager.getTAComments(req.session.user.username, req.params.id)
+      .then(function (comments) {
+        res.send(comments);
+      })
+      .catch(function () {
+        debug('fail to get TA comment');
+      });
+  });
+
   router.get('/myComment/:id', function (req, res) {
     manager.getMyComments(req.session.user.username, req.params.id)
       .then(function (lists) {

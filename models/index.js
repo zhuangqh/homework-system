@@ -23,8 +23,7 @@ module.exports = function (db) {
     }
   }
 
-  function generateDistribution(num) {
-    var len = num / 4;
+  function generateDistribution(len) {
     var ans = [], visit = [], p;
 
     visit = _.times(len, function () {
@@ -44,7 +43,6 @@ module.exports = function (db) {
     checkPassword: function (user) {
       var DB = selectDBByName(user.username);
       return DB.findOne({username: user.username}).then(function (doc) {
-          debug('doc in checkPassword', doc);
           return doc.password == user.password ? Promise.resolve() : Promise.reject();
       });
     },
@@ -99,6 +97,31 @@ module.exports = function (db) {
       });
     },
 
+    getTAComments: function (username, homeworkId) {
+      var homeworkIndex = parseInt(homeworkId) - 1;
+      var TAIndex = username.replace('TA00', '');
+
+      return homeworkDB.findOne({'homeworkId': homeworkId}).then(function (doc) {
+        var groupToComment = doc.TADistribution[TAIndex];
+
+        return studentDB.find({'$or': [{'group': groupToComment}, {'group': groupToComment+5}]})
+          .toArray().then(function (HWs) {
+
+          var HWToComment = _.times(HWs.length, function (index) {
+            var record = {};
+            record.username = HWs[index].username;
+            record.name = HWs[index].name;
+            record.snapshot = HWs[index].homeworks[homeworkIndex].snapshot;
+            record.githubLink = HWs[index].homeworks[homeworkIndex].githubLink;
+            record.codePackage = HWs[index].homeworks[homeworkIndex].codePackage;
+            return record;
+          });
+
+          return Promise.resolve(HWToComment);
+        });
+      });
+    },
+
     getMyComments: function (username, homeworkId) {
       return studentDB.findOne({'username': username}).then(function (doc) {
         var homeworkIndex = parseInt(homeworkId) - 1;
@@ -134,9 +157,13 @@ module.exports = function (db) {
     },
 
     addHomework: function (homework) {
-      homework.distribution = generateDistribution(40);
+      homework.distribution = generateDistribution(10);
+      homework.TAdistribution = generateDistribution(5);
       return homeworkDB.insert(homework).then(function () {
-        return studentDB.updateMany({}, {'$push': {"homeworks": homework}});
+        var updateOp = {};
+        updateOp['homeworks'] = homework;
+        updateOp['comments'] = {'homeworkId': homework.homeworkId};
+        return studentDB.updateMany({}, {'$push': updateOp});
       });
     },
 

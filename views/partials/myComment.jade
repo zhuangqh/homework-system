@@ -14,7 +14,7 @@ div.pre-review
     div.col-md-10.col-md-offset-1.pre-comments(ng-repeat='(reviewer, comment) in myCommentList')
 
       // comments
-      div.comment-panel
+      div.comment-panel(ng-class="{'TA-comment': reviewer[0] == 'T', 'student-comment': reviewer[0] != 'T'}")
         div.col-md-10.comment
           p {{comment.comment}}
         div.pre-score.text-center

@@ -46,10 +46,10 @@ div.container-fluid
         div.caption.row(ng-show="homework.status == 'end'")
           a(href='{{homework.link}}').col-md-4 作业链接
           a(href='#').col-md-4 源文件
-          a(href='/previousReview').col-md-4 查看评论
+          a(href='/previousReview/{{homework.homeworkId}}').col-md-4 查看评论
         div.caption.row(ng-show="homework.status == 'now'")
           a(href='{{homework.link}}').col-md-4 作业链接
           a(href='/comment/{{homework.homeworkId}}').col-md-4 评论
-          a(href='#{{homework.homeworkId}}', data-target='#upload', data-toggle='modal').col-md-4 提交
+          a(href='#', data-target='#upload', data-toggle='modal').col-md-4 提交
         div.caption.row(ng-show="homework.status == 'future'")
           a(href='{{homework.link}}').col-md-4 作业链接

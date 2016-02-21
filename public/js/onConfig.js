@@ -28,7 +28,7 @@ function onConfig($stateProvider, $locationProvider, $urlRouterProvider) {
       }
     })
     .state('previousReview', {
-      url: '/previousReview',
+      url: '/previousReview/:id',
       views: {
         "nav": {
           templateUrl: 'partials/student_nav',
@@ -36,7 +36,7 @@ function onConfig($stateProvider, $locationProvider, $urlRouterProvider) {
         },
         "content": {
           templateUrl: 'partials/previousReview',
-          controller: 'PreReviewCtrl'
+          controller: 'MyCommentCtrl'
         }
       }
     })

@@ -8,12 +8,12 @@ div.pre-review
     li(role='presentation')
       a(href='/myComment/{{homeworkId}}') 我的评论
 
-  div.col-md-10.col-md-offset-1#pre-comments
+  div.col-md-10.col-md-offset-1.pre-comments
     p.text-center {{commentTitle}}
       a.back.btn.btn-link(href='/student') 返回
 
     // comments
-    div#homeworks-to-comment(ng-repeat='hw in HWToComment')
+    div.homeworks-to-comment(ng-repeat='hw in HWToComment')
       div.comment-edit-panel(ng-show='hw.codePackage')
         div.student-info.col-md-2
           p.text-center {{hw.name}}

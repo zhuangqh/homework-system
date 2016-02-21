@@ -2,7 +2,7 @@
  * Created by zhuangqh on 2016/2/15.
  */
 
-function Comment($scope, $http, $state, $stateParams) {
+function Comment($scope, $http, $stateParams) {
   $scope.HWToComment = [];
   $scope.CommentToSend = {};
   $scope.homeworkId = $stateParams.id;
@@ -29,7 +29,7 @@ function Comment($scope, $http, $state, $stateParams) {
   }
 }
 
-Comment.$inject = ['$scope', '$http', '$state', '$stateParams'];
+Comment.$inject = ['$scope', '$http', '$stateParams'];
 export default {
   name: 'CommentCtrl',
   fn: Comment
