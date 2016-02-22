@@ -60,8 +60,8 @@ module.exports = function (db) {
       .then(function (comments) {
         res.send(comments);
       })
-      .catch(function () {
-        debug('fail to get TA comment');
+      .catch(function (err) {
+        debug('fail to get TA comment', err);
       });
   });
 
@@ -135,6 +135,7 @@ module.exports = function (db) {
     var username = req.session.user.username;
 
     form.parse(req, function (err, fields, files) {
+      debug(files);
       var originalpath = files.file[0].path;
       var destDir = path.join('dist', 'uploads', username);
       var destPath = path.join(destDir, 'HW' + homeworkId + '-' + files.file[0].originalFilename);
@@ -191,18 +192,20 @@ module.exports = function (db) {
       .catch(function (err) {
         debug('fail to add extra info to homework', err);
       });
-    res.send();
   });
 
   router.post('/comment/:id', function (req, res) {
     var homeworkId = req.params.id;
     var originalComment = req.body;
+    var reviewer = req.session.user.username;
+    if (reviewer.indexOf('TA') != -1) reviewer = 'TA';
+
     var user = {
       'username': originalComment.username,
       'comments.homeworkId': homeworkId
     };
     delete originalComment.username;
-    manager.addComment(user, originalComment, req.session.user.username)
+    manager.addComment(user, originalComment, reviewer)
       .then(function () {
         res.end()
       })

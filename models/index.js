@@ -102,7 +102,7 @@ module.exports = function (db) {
       var TAIndex = username.replace('TA00', '');
 
       return homeworkDB.findOne({'homeworkId': homeworkId}).then(function (doc) {
-        var groupToComment = doc.TADistribution[TAIndex];
+        var groupToComment = doc.TAdistribution[TAIndex];
 
         return studentDB.find({'$or': [{'group': groupToComment}, {'group': groupToComment+5}]})
           .toArray().then(function (HWs) {

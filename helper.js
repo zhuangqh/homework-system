@@ -17,8 +17,7 @@ function Student() {
   this.group = '';
   this.class = '';
   this.homeworks = [];
-  this.toComment = [];
-  this.homeworks.push(new Homework());
+  this.comments = [];
 }
 
 function Teacher() {
@@ -29,19 +28,6 @@ function Teacher() {
 function TeacherAssist() {
   this.username = '';
   this.password = 'zxcvb';
-}
-
-// definition of homework
-function Homework() {
-  this.homeworkId = '1';
-  this.title = 'HTML Basic';
-  this.link = 'https://github.com/zhuangqh';
-  this.codePackage = '';
-  this.githubLink = '';
-  this.postscript = '';
-  this.snapshot = '';
-  this.status = 'now';
-  this.comments = [];
 }
 
 function infoGenerator(type, len) {
@@ -107,7 +93,7 @@ mongodb.connect(mongourl).catch(function (error) {
   // generate Teacher Assistance
   TAs = _.times(5, function (index) {
     obj = new TeacherAssist();
-    obj.username = 'TA00' + index;
+    obj.username = 'TA00' + (index + 1);
     return obj;
   });
 

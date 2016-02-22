@@ -41,7 +41,6 @@ function Student($scope, $http, $state, FileUploader) {
       });
   };
 
-
 }
 
 Student.$inject = ['$scope', '$http', '$state', 'FileUploader'];
