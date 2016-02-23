@@ -89,6 +89,11 @@ module.exports = function (db) {
             record.snapshot = HWs[index].homeworks[homeworkIndex].snapshot;
             record.githubLink = HWs[index].homeworks[homeworkIndex].githubLink;
             record.codePackage = HWs[index].homeworks[homeworkIndex].codePackage;
+            record.comment = HWs[index].comments[homeworkIndex][username];
+            if (record.comment) {
+              record.comment = HWs[index].comments[homeworkIndex][username].comment;
+              record.score = HWs[index].comments[homeworkIndex][username].score;
+            }
             return record;
           });
           debug('fuck', HWToComment);
@@ -114,6 +119,11 @@ module.exports = function (db) {
             record.snapshot = HWs[index].homeworks[homeworkIndex].snapshot;
             record.githubLink = HWs[index].homeworks[homeworkIndex].githubLink;
             record.codePackage = HWs[index].homeworks[homeworkIndex].codePackage;
+            record.comment = HWs[index].comments[homeworkIndex][username];
+            if (record.comment) {
+              record.comment = HWs[index].comments[homeworkIndex][username].comment;
+              record.score = HWs[index].comments[homeworkIndex][username].score;
+            }
             return record;
           });
 

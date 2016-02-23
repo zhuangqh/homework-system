@@ -7,7 +7,6 @@ import angular from 'angular';
 // library
 
 import 'bootstrap';
-import 'highcharts';
 window.moment = require('moment');
 
 // angular modules

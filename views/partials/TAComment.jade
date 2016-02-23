@@ -21,9 +21,9 @@ div.pre-review
           div.row
             a(href='{{hw.codePackage}}', target='_blank') 源文件
         form(ng-submit='comment(hw.username)')
-          textarea.col-md-8.comment-input(ng-model='CommentToSend[hw.username].comment')
+          textarea.col-md-8.comment-input(ng-model='CommentToSend[hw.username].comment', placeholder='{{hw.comment}}', required)
           div.comment-upload.text-center
             div.score.input-group
-              input.form-control(type='text', placeholder='分数', ng-model='CommentToSend[hw.username].score')
+              input.form-control(type='text', placeholder='{{hw.score}}', ng-model='CommentToSend[hw.username].score', min='0', max='100', required)
             br
             button.btn.btn-primary(type='submit') 提交

@@ -8,6 +8,10 @@ function StudentNav($scope, $http, $state) {
     .success(function (res) {
       if (!res.isLogin) {
         $state.go('login');
+      } else if (res.username == 'teacher') {
+        redirect(res.username, $state);
+      } else if (res.username.indexOf('TA') != -1) {
+        redirect(res.username, $state);
       }
     });
 

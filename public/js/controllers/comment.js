@@ -11,6 +11,7 @@ function Comment($scope, $http, $stateParams) {
   $http.get('/api/comment/' + $stateParams.id)
     .success(function (comments) {
       $scope.HWToComment = comments;
+      console.log(comments);
     });
 
   $http.get('/api/commentTitle/' + $scope.homeworkId)

@@ -198,7 +198,6 @@ module.exports = function (db) {
     var homeworkId = req.params.id;
     var originalComment = req.body;
     var reviewer = req.session.user.username;
-    if (reviewer.indexOf('TA') != -1) reviewer = 'TA';
 
     var user = {
       'username': originalComment.username,
